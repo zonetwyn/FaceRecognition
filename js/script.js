@@ -239,31 +239,42 @@ function submitHandler(event) {
                 if (personRequest.status === 200) {
                     const personId = JSON.parse(personRequest.responseText).personId;
                     for (let i = 0; i < files.length; i++) {
-                        let current = files[i];
-                        let reader = new FileReader();
-                        reader.onload = () => {
-                            let fileRequest = new XMLHttpRequest();
-                            fileRequest.onreadystatechange = (event) => {
-                                if (fileRequest.readyState = XMLHttpRequest.DONE) {
-                                    if (fileRequest.status === 200) {
-                                        if (i === files.length - 1) {
-                                            document.querySelector("#submit").classList.remove('loading');
-                                            submitSuccess.style.display = 'block';
-                                            setTimeout(() => {
-                                                submitSuccess.style.display = 'none';
-                                            }, 4000);
+                        setTimeout(() => {
+                            let current = files[i];
+                            let reader = new FileReader();
+                            let valid = true;
+                            reader.onload = () => {
+                                let fileRequest = new XMLHttpRequest();
+                                fileRequest.onreadystatechange = (event) => {
+                                    if (fileRequest.readyState = XMLHttpRequest.DONE) {
+                                        if (fileRequest.status === 200) {
+                                            if ((i === files.length - 1 ) && valid) {
+                                                document.querySelector("#submit").classList.remove('loading');
+                                                submitSuccess.style.display = 'block';
+                                                setTimeout(() => {
+                                                    submitSuccess.style.display = 'none';
+                                                }, 4000);
+                                            }
+                                        } else if (fileRequest.status === 400) {
+                                            valid = false;
+                                            if ((i === files.length - 1 ) && !valid) {
+                                                document.querySelector("#submit").classList.remove('loading');
+                                                submitFailure.style.display = 'block';
+                                                submitFailure.innerText = 'Some of your picture are not valid (One face per picture, picture do not contains text!)' ;
+                                                setTimeout(() => {
+                                                    submitFailure.style.display = 'none';
+                                                }, 5000);
+                                            }
                                         }
-                                    } else {
-                                      
                                     }
                                 }
-                            }
-                            fileRequest.open('POST', 'https://francecentral.api.cognitive.microsoft.com/face/v1.0/persongroups/zone-group/persons/' + personId + '/persistedFaces', true);
-                            fileRequest.setRequestHeader('Content-type', 'application/octet-stream');
-                            fileRequest.setRequestHeader('Ocp-Apim-Subscription-Key', '9d36ab9dbc24441a9d22e268c1f08b0b');
-                            fileRequest.send(reader.result);
-                        };
-                        reader.readAsArrayBuffer(current);
+                                fileRequest.open('POST', 'https://francecentral.api.cognitive.microsoft.com/face/v1.0/persongroups/zone-group/persons/' + personId + '/persistedFaces', true);
+                                fileRequest.setRequestHeader('Content-type', 'application/octet-stream');
+                                fileRequest.setRequestHeader('Ocp-Apim-Subscription-Key', '9d36ab9dbc24441a9d22e268c1f08b0b');
+                                fileRequest.send(reader.result);
+                            };
+                            reader.readAsArrayBuffer(current);
+                        }, 200);
                     }
                 } else {
                     document.querySelector("#submit").classList.remove('loading');
