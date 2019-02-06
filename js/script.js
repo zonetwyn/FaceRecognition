@@ -254,12 +254,7 @@ function submitHandler(event) {
                                             }, 4000);
                                         }
                                     } else {
-                                        document.querySelector("#submit").classList.remove('loading');
-                                        submitFailure.style.display = 'block';
-                                        submitFailure.innerText = 'Some of yours files are not correct (Only one face, no text!)';
-                                        setTimeout(() => {
-                                            submitFailure.style.display = 'none';
-                                        }, 4000);
+                                      
                                     }
                                 }
                             }
