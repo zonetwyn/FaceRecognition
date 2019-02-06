@@ -246,9 +246,20 @@ function submitHandler(event) {
                             fileRequest.onreadystatechange = (event) => {
                                 if (fileRequest.readyState = XMLHttpRequest.DONE) {
                                     if (fileRequest.status === 200) {
-                                        try {
-                                            console.log(JSON.parse(fileRequest.responseText).persistedFaceId);
-                                        } catch(e) {}
+                                        if (i === files.length - 1) {
+                                            document.querySelector("#submit").classList.remove('loading');
+                                            submitSuccess.style.display = 'block';
+                                            setTimeout(() => {
+                                                submitSuccess.style.display = 'none';
+                                            }, 4000);
+                                        }
+                                    } else {
+                                        document.querySelector("#submit").classList.remove('loading');
+                                        submitFailure.style.display = 'block';
+                                        submitFailure.innerText = 'Some of yours files are not correct (Only one face, no text!)';
+                                        setTimeout(() => {
+                                            submitFailure.style.display = 'none';
+                                        }, 4000);
                                     }
                                 }
                             }
@@ -256,29 +267,9 @@ function submitHandler(event) {
                             fileRequest.setRequestHeader('Content-type', 'application/octet-stream');
                             fileRequest.setRequestHeader('Ocp-Apim-Subscription-Key', '9d36ab9dbc24441a9d22e268c1f08b0b');
                             fileRequest.send(reader.result);
-
-                            let facesRequest = new XMLHttpRequest();
-                            facesRequest.onreadystatechange = (event) => {
-                                if (facesRequest.readyState = XMLHttpRequest.DONE) {
-                                    if (facesRequest.status === 200) {
-                                        try {
-                                            console.log(JSON.parse(facesRequest.responseText).persistedFaceId);
-                                        } catch(e) {}
-                                    }
-                                }
-                            }
-                            facesRequest.open('POST', 'https://francecentral.api.cognitive.microsoft.com/face/v1.0/facelists/zone-faces/persistedFaces', true);
-                            facesRequest.setRequestHeader('Content-type', 'application/octet-stream');
-                            facesRequest.setRequestHeader('Ocp-Apim-Subscription-Key', '9d36ab9dbc24441a9d22e268c1f08b0b');
-                            facesRequest.send(reader.result);
                         };
                         reader.readAsArrayBuffer(current);
                     }
-                    document.querySelector("#submit").classList.remove('loading');
-                    submitSuccess.style.display = 'block';
-                    setTimeout(() => {
-                        submitSuccess.style.display = 'none';
-                    }, 4000);
                 } else {
                     document.querySelector("#submit").classList.remove('loading');
                     submitFailure.style.display = 'block';
