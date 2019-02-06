@@ -3,9 +3,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    
+    <script src="js/script.js" async></script>
+
+    <title>FaceRecognition</title>
 </head>
 <body>
-    
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a class="header item">
+                <p class="nav-brand">Face Recognition</p>
+            </a>
+            <div class="right menu">
+                <a class="item" id="menu-search" onclick="handleMenuClick(event)">
+                    <i class="fas fa-search"></i>Search Face
+                </a>
+                <a class="item" id="menu-add" onclick="handleMenuClick(event)">
+                    <i class="fas fa-plus"></i>Add Face
+                </a>
+            </div>
+      </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div id="content-search">
+            <div class="ui grid">
+                <div class="eight wide column centered center aligned">
+                    <div class="ui message left">
+                        <div class="header">
+                            Terms of use
+                        </div>
+                        <p>Welcome to Face Recognition, you can search person you registered by image </p>
+                        <p>Before processing an image search, you need to register new face with some image (more than 4 images, all image must be represent the same person you registered). </p>
+                    </div>
+                    <label id="dropzone" class="dropzone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event);">
+                        <span id="dropzone-label">
+                            <p>Drag and drop the face you want to search</p>
+                            <p>You can also click on the drop zone and select the file</p>
+                        </span>
+                        <input type="file" onchange="changeHandler(event)">
+                        <img id="dropzone-file">
+                    </label>
+                    <button class="ui primary button" onclick="clickHandler(event)" id="search">
+                        <i class="fas fa-search"></i>Search
+                    </button>
+                    <div class="search-response" id="search-response">
+                        <div class="ui warning message" id="search-failure">
+                            <div class="header">
+                                Message
+                            </div>
+                            Ooops! We dit not find any face matching your search
+                        </div>
+                        <div class="ui card" id="search-success">
+                            <div class="content">
+                                <a class="header" id="response-name"></a>
+                                <div class="meta">
+                                    <span class="date" id="response-id"></span>
+                                </div>
+                                <div class="description" id="response-description"></div>
+                            </div>
+                            <div class="extra content">
+                                <a>
+                                    <i class="fas fa-user"></i>
+                                    <spa id="response-images"></spa>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content-add">
+            <div class="ui grid">
+                <div class="eight wide column centered center aligned">
+                    <div class="ui message left">
+                        <div class="header">
+                            Terms of use
+                        </div>
+                        <p>Here you can create a new face and save it into our remote server. </p>
+                        <p>For efficient recognition, we recommend to add more than 4 images. </p>
+                    </div>
+                    <div class="ui red message" id="submit-failure"></div>
+                    <div class="ui green message" id="submit-success">Wooohoooo! You have been successfully added new face, you can now search it on search page</div>
+                    <form class="ui form" onsubmit="submitHandler(event);">
+                        <div class="field">
+                            <label>Name *</label>
+                            <input type="text" name="name" placeholder="Name" id="name">
+                        </div>
+                        <div class="field">
+                            <label>Description *</label>
+                            <textarea name="description" id="description"></textarea>
+                        </div>
+                        <label id="dropzones" class="dropzone" ondrop="dropsHandler(event)" ondragover="dragOverHandler(event);">
+                            <span id="dropzones-label">
+                                <p>Drag and drop your files here</p>
+                                <p>You can also click on the drop zone and select yours files</p>
+                            </span>
+                            <input type="file" onchange="changesHandler(event)" multiple>
+                            <span id="dropzones-file"></span>
+                        </label>
+                        <button class="ui button" type="submit" id="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/semantic.min.js"></script>
 </body>
 </html>

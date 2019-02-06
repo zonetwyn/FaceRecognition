@@ -1,0 +1,112 @@
+div {
+    font-family: 'Raleway', sans-serif;
+}
+
+.form-control {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.ui.form .field>label {
+    font-size: 1.1rem;
+}
+
+.nav-brand {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.main {
+    margin-top: 4rem;
+    padding: 2rem;
+    font-weight: 300;
+}
+
+.menu .item i {
+    margin-right: .5rem;
+}
+
+/* For Search Page */
+
+input[type='file'] {
+    display: none;
+    height: 10rem;
+    width: 100%;
+}
+
+.dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 12rem;
+    border: .15rem dashed #816b6b;
+    background: #fff;
+    padding: 1rem;
+}
+
+#dropzone-file {
+    height: 10rem;
+    border: .15rem dashed #aa9090;
+}
+
+.dropzone-file {
+    height: 10rem;
+    border: .15rem dashed #aa9090;
+    margin: 1rem;
+}
+
+#search {
+    margin-top: 1rem;
+}
+
+#search i {
+    margin-right: .5rem;
+}
+
+.search-response {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.ui.warning.message {
+    width: 100%;
+    text-align: start;
+}
+
+.ui.form {
+    text-align: start;
+    margin-top: 3rem;
+}
+
+#dropzones-label p {
+    text-align: center;
+}
+
+.ui.message.left {
+    text-align: start;
+}
+
+.ui.message.left .header {
+    margin-bottom: 1rem;
+}
+
+.ui.message.left {
+    margin-bottom: 3rem;
+}
+
+#submit {
+    margin-top: 1rem;
+}
+
+#submit-success {
+    text-align: start;
+}
+
+#submit-failure {
+    text-align: start;
+}
